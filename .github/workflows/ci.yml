@@ -1,17 +1,21 @@
-name: CI/CD Pipeline
+name: CI
 
 on:
-  workflow_dispatch:   # allow Slack/API to trigger
-  push:
-    branches:
-      - app
+  workflow_dispatch:   # allows manual/API trigger
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: true
+        default: 'app'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.inputs.branch }}
 
-      - name: Run Build
-        run: echo "íº€ CI/CD pipeline started on branch ${{ github.ref }}"
+      - name: Run tests
+        run: echo "âœ… Running CI/CD on branch ${{ github.event.inputs.branch }}"
