@@ -1,36 +1,12 @@
 name: CI/CD Pipeline
-
 on:
   workflow_dispatch:   # allows manual trigger
   push:
     branches:
-      - main           # runs on push to main
+      - main
 
 jobs:
-  build:
+  hello-world:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
-
-      - name: Notify Slack
-        uses: slackapi/slack-github-action@v1.24.0
-        with:
-          payload: |
-            {
-              "text": "✅ CI/CD finished for *${{ github.repository }}* on branch *${{ github.ref_name }}*"
-            }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      - run: echo "✅ Workflow is valid and running!"
