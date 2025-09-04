@@ -1,12 +1,23 @@
-name: CI/CD Pipeline
+name: Slack CI/CD Test
+
 on:
-  workflow_dispatch:   # allows manual trigger
   push:
     branches:
-      - main
+      - app
+  workflow_dispatch:
 
 jobs:
-  hello-world:
+  notify:
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "âœ… Workflow is valid and running!"
+      - name: Send Slack Notification
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "íº€ CI/CD pipeline triggered for *${{ github.repository }}* on branch *${{ github.ref_name }}*"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
