@@ -3,14 +3,16 @@ name: Slack CI/CD Test
 on:
   push:
     branches:
+      - main
       - app
-  workflow_dispatch:
+  workflow_dispatch:   # allows manual trigger
 
 jobs:
   notify:
     runs-on: ubuntu-latest
-
     steps:
+      - run: echo "✅ Workflow is valid and running!"
+
       - name: Send Slack Notification
         uses: slackapi/slack-github-action@v1.24.0
         with:
