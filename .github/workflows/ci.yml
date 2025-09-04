@@ -1,11 +1,11 @@
 name: Slack CI/CD Test
 
 on:
+  workflow_dispatch:   # allows manual trigger
   push:
     branches:
       - main
       - app
-  workflow_dispatch:   # allows manual trigger
 
 jobs:
   notify:
@@ -22,4 +22,3 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
