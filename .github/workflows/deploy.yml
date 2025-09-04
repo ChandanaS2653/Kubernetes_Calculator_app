@@ -1,0 +1,35 @@
+name: Deploy to AWS
+
+on:
+  workflow_dispatch:   # Trigger manually or via API (Slack will call this)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # âœ… Configure AWS credentials from your GitHub secret
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-west-2
+          # "AWS_CREDS" must be a JSON secret with both accessKeyId & secretAccessKey
+          aws-access-key-id: ${{ fromJson(secrets.AWS_CREDS).aws_access_key_id }}
+          aws-secret-access-key: ${{ fromJson(secrets.AWS_CREDS).aws_secret_access_key }}
+
+      # âœ… Example: verify AWS identity
+      - name: Verify AWS CLI
+        run: aws sts get-caller-identity
+
+      # âœ… Your actual deployment logic goes here
+      - name: Deploy to AWS
+        run: |
+          echo "íº€ Starting deployment..."
+          # Example commands (replace with your real deployment steps)
+          # terraform init && terraform apply -auto-approve
+          # aws s3 cp ./app s3://my-deployment-bucket/ --recursive
+          # aws cloudformation deploy --template-file infra.yaml --stack-name my-stack
+          echo "âœ… Deployment finished."
