@@ -1,0 +1,14 @@
+name: Deploy from Slack
+
+on:
+  workflow_dispatch:   # allows manual/API trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Run Deployment
+        run: echo "íº€ Deployment started from Slack"
