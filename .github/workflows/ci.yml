@@ -1,7 +1,7 @@
 name: Slack CI/CD Test
 
 on:
-  workflow_dispatch:   # allows manual trigger
+  workflow_dispatch:  # allows manual trigger
   push:
     branches:
       - main
@@ -19,7 +19,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "íº€ CI/CD pipeline triggered for *${{ github.repository }}* on branch *${{ github.ref_name }}*"
+              "text": "CI/CD pipeline triggered for *${{ github.repository }}* on branch *${{ github.ref_name }}*"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.GH_TOKEN }}
